@@ -5,6 +5,7 @@ Vats*, S., Zhao*, M., Callaghan, P., Jia, M., Likhachev, M., Kroemer, O., & Koni
 
 [<img src="https://img.shields.io/badge/arxiv-%23B31B1B.svg?&style=for-the-badge&logo=arxiv&logoColor=white" />](https://arxiv.org/pdf/2505.00490)
 
+[Website](https://optimal-interactive-learning.github.io/)
 
 ## Installation
 We have tested our code on Ubuntu 20.04.
