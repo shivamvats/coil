@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive_teaming"
+description = "Optimal Interactive Learning on the Job via Facility Location Planning"
+version = "0.1"
+authors = [
+    {name = "Shivam Vats", email = "shivam_vats@brown.edu"},
+    {name = "Michelle Zhao", email = "mzhao2@andrew.cmu.edu"},
+    {name = "Patrick Callaghan", email = "pcallagh@andrew.cmu.edu"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+    "hydra-core",
+    "hydra_colorlog",
+    "tqdm",
+    "wandb",
+    "scipy",
+    "matplotlib",
+    "gurobipy",
+    "h5py",
+    "minigrid",
+]
+
+[tool.setuptools]
+packages = ["adaptive_teaming"]
+
+[tool.pyright]
+# needed because pyright can't find packages installed as editables
+extraPaths = ['deps/robosuite']

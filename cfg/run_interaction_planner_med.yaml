@@ -1,0 +1,47 @@
+defaults:
+  #- cost_cfg/normative_human  # high_cost_human, low_cost_human, normative_human
+  - cost_cfg: normative_human  # high_cost_human, low_cost_human, normative_human
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+
+hydra:
+  sweep:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${planner}
+  job:
+    chdir: True
+
+wandb:
+  project: act_delegate_inquire
+  group: ${env}-${planner}
+
+env: med_gridworld
+planner: confidence_based_planner
+
+render: False
+collect_demo: False
+data_dir: data/${env}
+seed: 42
+vis_tasks: True
+
+# Env configs
+gridworld:
+  list_of_goals: ['G1', 'G2', 'G3']
+
+human_model:
+  demo_file: ${data_dir}/${env}_demo.pkl
+
+task_seq:
+  num_tasks: 10
+
+# Planners
+
+fc_pref_planner:
+
+#fc_ptas_planner:
+
+confidence_based_planner:
+  confidence_threshold: 0.8
+
+fixed_planner:
+  plan: ["ASK_SKILL", "ROBOT", "HUMAN", "ROBOT", "HUMAN"]

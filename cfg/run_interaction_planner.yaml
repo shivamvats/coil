@@ -1,0 +1,73 @@
+defaults:
+  - cost_cfg: high_cost_human # real_conveyor_human  # high_cost_human, low_cost_human, normative_human
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+
+hydra:
+  sweep:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}-${desc}
+    subdir: ${planner}_${fc_planner}
+  run:
+    #dir: outputs/real/${planner}/task_set${task_seq.task_set}-seed-${seed}-${now:%m-%d}-${now:%H-%M}
+    dir: ./outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  job:
+    chdir: True # True
+
+wandb:
+  project: act_delegate_inquire
+  group: ${env}-${planner}
+
+env: gridworld
+planner: fc_pref_planner #info_gain_planner
+desc: ""
+
+fc_planner: greedy
+teach_adaptive: True #False
+experiment: "" #mip_vs_ptas
+
+render: True
+collect_demo: False
+data_dir: data/${env}
+seed: 122
+vis_tasks: False
+use_sim_for_task_gen: False #True
+
+debug:
+  execute_skill: False
+
+# Env configs
+gridworld:
+  list_of_goals: ['G1', 'G2']
+
+human_model:
+  demo_file: ${data_dir}/${env}_demo.pkl
+
+task_seq:
+  num_tasks: 20
+  task_set: 0
+  num_seqs: 5
+
+# Planners
+
+info_gain_planner:
+  cost_scale_factor: 1
+
+task_info_gain_planner:
+  cost_scale_factor: 0.01
+
+fc_pref_planner:
+  teach_adaptive: ${teach_adaptive}
+
+fc_mip_planner:
+  teach_adaptive: ${teach_adaptive}
+
+fc_greedy_planner:
+  teach_adaptive: ${teach_adaptive}
+
+confidence_based_planner:
+  teach_adaptive: ${teach_adaptive}
+  confidence_threshold: 0.8
+
+fixed_planner:
+  plan: ["ASK_SKILL", "ROBOT", "HUMAN", "ROBOT", "HUMAN"]
+

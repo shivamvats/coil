@@ -1,0 +1,7 @@
+# A normative cost model.
+ROBOT: 10
+HUMAN: 80
+ASK_SKILL: 100
+ASK_PREF: 20
+FAIL: 100
+PREF_COST: 100
